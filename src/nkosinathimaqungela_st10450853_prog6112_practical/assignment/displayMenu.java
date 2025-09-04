@@ -1,20 +1,18 @@
 package nkosinathimaqungela_st10450853_prog6112_practical.assignment;
 
 import java.util.Scanner;
-import java.util.Random;
-import java.util.regex.Pattern;
 import java.util.ArrayList;
 
 
 public class displayMenu {
-    private static ArrayList<Capture> seriesList = new ArrayList<>();
-    public void showMenu(){
+    static ArrayList<Capture> seriesList = new ArrayList<>();
+    public static void showMenu(){
         Scanner scanner = new Scanner(System.in);
         int option;
         boolean quit = false;
         
-        while (quit){
-            System.out.println("\nzMain Menu");
+        while (!quit){
+            System.out.println("\nMain Menu");
             System.out.println("************************************");
             System.out.println("Please select one of the following menu items");            
             System.out.println("(1) Capture a new series.");            
@@ -25,7 +23,7 @@ public class displayMenu {
             System.out.println("(6) Exit application");
             
             if (scanner.hasNextInt()){
-                choice = scanner.nextInt();
+                option = scanner.nextInt();
                 scanner.nextLine();
             } else {
                 System.out.println("Invalid option. Please enter a number");
@@ -33,17 +31,128 @@ public class displayMenu {
                 continue;
             }
             switch (option){
-                case "(1)": System.out.println("Please enter the series ID:");
-                            scanner.nextLine();
-                            String seriesID = scanner.nextLine();
-                            System.out.println("Please enter the series name");
-                            break;
+                case (1) -> {
+                  //prompting the user to add in information and then storing it
+                    System.out.println("Please enter the series ID:");
+                    String seriesID = scanner.nextLine();
                     
-                case "6": System.out.println("Exiting application");
-                         quit = true;
+                    System.out.println("Please enter the series name:");
+                    String seriesName = scanner.nextLine();
+                    
+                    System.out.println("Please enter the series age "
+                            + "restriction (e.g., 13+):");
+                    String seriesAge = scanner.nextLine();
+                    
+                    System.out.println("Please enter the number of"
+                            + " episodes:");
+                    String numberOfEpisodes = scanner.nextLine();
+                    
+                    Capture series = new Capture(seriesID,
+                            seriesName, seriesAge, numberOfEpisodes);
+                    seriesList.add(series);
+                    System.out.println(seriesName + "'"
+                            + " has been captured successfully with the "
+                            + "following ID: " +
+                            seriesID + "!");
+                }
+                
+                case (2) ->{
+                System.out.println("Searching for a series... "
+                        + "Please enter the series name:");
+                    String searchName = scanner.nextLine();
+                    boolean found = false;
+                    for (Capture s : seriesList) { 
+                        
+                        //searches for the users entered text in the array
+                        if (s != null && s.getSeriesName().equalsIgnoreCase
+                            (searchName)) {
+                            
+                            //display the series and all the captured info
+                            System.out.println("Series found: ID: " +
+                                    s.getSeriesId() + ", Name: " 
+                                    + s.getSeriesName() + ", Age: " 
+                                    + s.getSeriesAge() + ", Episodes: " 
+                                    + s.getNumberOfEpisodes());
+                            found = true;
+                        }
+                    }
+                    if (!found) {
+                        /*error message for when there is no movie with the name
+                          that the user provided
+                        */
+                        System.out.println("Series '" + searchName 
+                                + "Series not found.");
+                    }
+                    break;
+                }
+                
+                case (3) ->{
+                    System.out.println("Updating series age restriction... "
+                            + "Please enter the series name:");
+                    String updateName = scanner.nextLine();
+                    
+                    System.out.print("Enter new age restriction (e.g., 13): ");
+                    int newAge = scanner.nextInt(); 
+                    scanner.nextLine(); 
+                    boolean updated = false;
+                    for (Capture s : seriesList) { 
+                        if (s != null && s.getSeriesName().equalsIgnoreCase
+                           (updateName)) {
+                            s.setSeriesAge(newAge);
+                            updated = true;
+                            System.out.println("Age restriction for '" 
+                                    + updateName + "' updated to "
+                                    + newAge + ".");
+                        }
+                    }
+                    if (!updated) {
+                        System.out.println("Series '" + updateName 
+                                +  "' not found.");
+                    }
+                    break;
+                } 
+                
+                case (4) ->{
+                    System.out.println("Deleting a series. "
+                            + "Please enter the series name:");
+                    String deleteName = scanner.nextLine();
+                    boolean deleted = false;
+                    for (int i = 0; i < seriesList.size(); i++) {
+                        if (seriesList.get(i) != null && seriesList.get(i)
+                                .getSeriesName().equalsIgnoreCase(deleteName)) {
+                                    seriesList.remove(i);
+                                    deleted = true;
+                                    System.out.println("Series '" + deleteName
+                                            + "' has been deleted.");
+                        }
+                    }
+                    if (!deleted) {
+                        System.out.println("Series '" + deleteName 
+                                + "' not found.");
+                    }
+                    break;
+                }
+                
+                case (5) -> {
+                    System.out.println("Printing series report - 2025...");
+                    for (Capture s : seriesList) { // Updated class name
+                        if (s != null) {
+                            System.out.println("ID: " + s.getSeriesId() 
+                                    + ", Name: " + s.getSeriesName() 
+                                    + ", Age: " + s.getSeriesAge() 
+                                    + ", Episodes: " + s.getNumberOfEpisodes());
+                        }
+                    }
+                    break;
+                }
+                    
+                case (6) -> {
+                    System.out.println("Exiting application");
+                    quit = true;
+                }
                            
             }
-            scanner.close();
+            
         }
     }
 }
