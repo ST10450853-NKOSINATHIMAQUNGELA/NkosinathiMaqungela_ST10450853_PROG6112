@@ -1,4 +1,4 @@
-package nkosinathimaqungela_st10450853_prog6112_practical.assignment;
+package SectionA;
 //Nkosinathi Maqungela ST10450853
 
 import java.util.Scanner;

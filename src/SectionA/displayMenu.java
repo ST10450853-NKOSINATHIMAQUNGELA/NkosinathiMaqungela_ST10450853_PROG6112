@@ -1,4 +1,4 @@
-package nkosinathimaqungela_st10450853_prog6112_practical.assignment;
+package SectionA;
 
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -33,28 +33,53 @@ public class displayMenu {
             switch (option){
                 case (1) -> {
                   //prompting the user to add in information and then storing it
+                    System.out.println("CAPTURE A NEW SERIES");
+                    System.out.println("********************************");
+                    
                     System.out.println("Please enter the series ID:");
-                    String seriesID = scanner.nextLine();
+                    String SeriesID = scanner.nextLine();
                     
                     System.out.println("Please enter the series name:");
-                    String seriesName = scanner.nextLine();
+                    String SeriesName = scanner.nextLine();
                     
-                    System.out.println("Please enter the series age "
+                    String SeriesAge = null;
+                        while(SeriesAge == null) {
+                            System.out.println("Please enter the series age "
                             + "restriction (e.g., 13+):");
-                    String seriesAge = scanner.nextLine();
+                            String AgeString = scanner.nextLine().trim();
+                            
+                            try {
+                                int Age = Integer.parseInt(AgeString);
+                                
+                                    if (Age >= 2 && Age <= 18){
+                                        SeriesAge = AgeString;
+                                        System.out.println("Series Age add");
+                                    } else {
+                                        System.out.println("Invalid Age "
+                                                + "restriction. Please try "
+                                                + "again"); 
+                                      }
+                            } catch (NumberFormatException e){
+                                System.out.println("You have entered a incorrect"
+                                        + "series age!!! Please re-enter the"
+                                        + "the series age >>");
+                                }
+                        }
+                        
                     
                     System.out.println("Please enter the number of"
                             + " episodes:");
-                    String numberOfEpisodes = scanner.nextLine();
+                    String SeriesNumberOfEpisodes = scanner.nextLine();
                     
-                    Capture series = new Capture(seriesID,
-                            seriesName, seriesAge, numberOfEpisodes);
+                    Capture series = new Capture(SeriesID,
+                            SeriesName, SeriesAge, SeriesNumberOfEpisodes);
                     seriesList.add(series);
-                    System.out.println(seriesName + "'"
+                    System.out.println(SeriesName + "'"
                             + " has been captured successfully with the "
                             + "following ID: " +
-                            seriesID + "!");
+                            SeriesID + "!");
                 }
+                
                 
                 case (2) ->{
                 System.out.println("Searching for a series... "
@@ -92,7 +117,7 @@ public class displayMenu {
                     String updateName = scanner.nextLine();
                     
                     System.out.print("Enter new age restriction (e.g., 13): ");
-                    int newAge = scanner.nextInt(); 
+                    String newAge = scanner.nextLine(); 
                     scanner.nextLine(); 
                     boolean updated = false;
                     for (Capture s : seriesList) { 
