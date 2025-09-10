@@ -82,33 +82,38 @@ public class displayMenu {
                 
                 
                 case (2) ->{
-                System.out.println("Searching for a series... "
-                        + "Please enter the series name:");
-                    String searchName = scanner.nextLine();
+                System.out.println("Enter the series id to search: " );
+                    String searchId = scanner.nextLine();
                     boolean found = false;
                     for (Capture s : seriesList) { 
                         
-                        //searches for the users entered text in the array
-                        if (s != null && s.getSeriesName().equalsIgnoreCase
-                            (searchName)) {
+                      //searches for the users entered text in the array
+                      if (s != null && s.getSeriesId().equalsIgnoreCase
+                            (searchId)) {
                             
-                            //display the series and all the captured info
-                            System.out.println("Series found: ID: " +
-                                    s.getSeriesId() + ", Name: " 
-                                    + s.getSeriesName() + ", Age: " 
-                                    + s.getSeriesAge() + ", Episodes: " 
-                                    + s.getNumberOfEpisodes());
+                        System.out.println("-----------------------------");
+                            
+                        //display the series and all the captured info
+                        System.out.println("Series ID: " + s.getSeriesId());
+                        System.out.println("SERIES NAME: " + s.getSeriesName());
+                        System.out.println("SERIES AGE RESTRICTION: " 
+                            + s.getSeriesAge());
+                        System.out.println("SERIES NUMBER OF EPISODES: " 
+                            + s.getNumberOfEpisodes() );
+                            
+                                
                             found = true;
-                        }
+                            if (!found) {
+                             /*error message for when there is no movie with the
+                                ID that the user provided
+                                */
+                                System.out.println("Series with the ID: " 
+                                        + searchId 
+                                + "was not found.");
+                            }
+                       }
                     }
-                    if (!found) {
-                        /*error message for when there is no movie with the name
-                          that the user provided
-                        */
-                        System.out.println("Series '" + searchName 
-                                + "Series not found.");
-                    }
-                    break;
+                
                 }
                 
                 case (3) ->{
